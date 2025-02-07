@@ -1,7 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Search, ShoppingCart, Sun, Moon, LogIn, LogOut } from 'lucide-react';
-import { useStore } from '../store/useStore';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Search, ShoppingCart, Sun, Moon, LogIn, LogOut } from "lucide-react";
+import { useStore } from "../store/useStore";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 export const Navbar: React.FC = () => {
   const {
@@ -21,10 +27,11 @@ export const Navbar: React.FC = () => {
   const handleLogin = () => {
     // Dummy user for Simulation
     setUser({
-      id: '1',
-      name: 'John Doe',
-      email: 'john@example.com',
-      image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop',
+      id: "1",
+      name: "John Doe",
+      email: "john@example.com",
+      image:
+        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
     });
   };
 
@@ -39,7 +46,7 @@ export const Navbar: React.FC = () => {
           <Link to="/" className="flex items-center">
             <ShoppingCart className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
             <span className="ml-2 text-xl font-bold text-gray-800 dark:text-white">
-              EShop
+            minicart
             </span>
           </Link>
 
@@ -75,14 +82,16 @@ export const Navbar: React.FC = () => {
             >
               <ShoppingCart className="h-5 w-5 text-gray-600 dark:text-gray-300" />
               {cart.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs 
-                               rounded-full h-5 w-5 flex items-center justify-center">
+                <span
+                  className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs 
+                               rounded-full h-5 w-5 flex items-center justify-center"
+                >
                   {cart.reduce((acc, item) => acc + item.quantity, 0)}
                 </span>
               )}
             </Link>
 
-            {user ? (
+            {/* {user ? (
               <div className="flex items-center space-x-3">
                 <img
                   src={user.image}
@@ -107,7 +116,14 @@ export const Navbar: React.FC = () => {
                 <LogIn className="h-4 w-4" />
                 <span>Login</span>
               </button>
-            )}
+            )} */}
+           
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </div>
       </div>
